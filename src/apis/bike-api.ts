@@ -33,7 +33,7 @@ class ToulouseAPI {
     });
   }
 
-  getBikeInfo(city, station_id) {
+  getBikeInfo(city: string, station_id: number) {
     return this.request(`/stations/${station_id}`, { contract: city }).then(
       (bikeRawData: any) =>
         <BikeInfo>{

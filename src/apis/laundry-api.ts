@@ -13,9 +13,15 @@ type LaundryStatus = "DISPONIBLE" | "DEMARRAGE" | "EN COURS" | "TERMINE";
 class LaundryAPI {
   private hostname: string = "https://www.proxiwash.com/weblaverie/ma-laverie-2?s=63d411";
   private data: Array<LaundryInfo>;
+  private page: puppeteer.Page;
 
   public constructor() {
     this.data = [];
+  }
+
+  public async start() {
+    const browser = await puppeteer.launch();
+    this.page = await browser.newPage();
   }
 
   // Get data
@@ -33,16 +39,15 @@ class LaundryAPI {
     return this.getAvailable("SECHE LINGE 14 KG");
   }
 
+  public async getData() {
+    await this.update();
+    return this.data;
+  }
+
   // Update data
   public async update() {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-
-    await page.goto(this.hostname);
-    this.data = await page.$$eval("#liste-machines table tbody tr", this.parseTable);
-    console.table(this.data);
-
-    await browser.close();
+    await this.page.goto(this.hostname);
+    this.data = await this.page.$$eval("#liste-machines table tbody tr", this.parseTable);
   }
 
   private parseTable(rows: Element[]) {

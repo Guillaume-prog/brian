@@ -1,23 +1,25 @@
-import ToulouseAPI from "./bike-api";
-import LaundryAPI from "./laundry-api";
+import ToulouseAPI from "./apis/bike-api";
+import LaundryAPI from "./apis/laundry-api";
+import Server from "./server";
 
 const API_KEY: string = "023030b5f6c19e42322958981c0db9bdab05b1d9";
 
 async function main() {
-  const toulouseApi = new ToulouseAPI(API_KEY);
-  const bikeData = await toulouseApi.getBikeInfo("toulouse", 222);
+  console.log("Starting app");
 
-  console.table([bikeData]);
-}
-
-async function main_laundry() {
+  const server = new Server();
+  const toulouseAPI = new ToulouseAPI(API_KEY);
   const laundryAPI = new LaundryAPI();
 
-  await laundryAPI.update();
+  await laundryAPI.start();
 
-  console.log(laundryAPI.getNumAvailableWashers() + " lave linges disponibles");
+  server.addRoute("/", () => ["Welcome to Brian's lair !"]);
+
+  server.addRoute("/bikes", () => toulouseAPI.getBikeInfo("toulouse", 222));
+
+  server.addRoute("/laundry", () => laundryAPI.getData());
+
+  server.launch(8000);
 }
 
-console.log("Starting app");
 main();
-main_laundry();
