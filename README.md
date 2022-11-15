@@ -1,4 +1,42 @@
-# BRIAN
+# Nuxt 3 Minimal Starter
 
-**WTF is brian ?** Brian is my soon to be personnal assistant. He'll start off dumb and ramp up as needed.
-He ain't necessarily got AI as of yet, but he'll help a ton by aggregating tons of useful info about my life, cuz it needs some centralising.
+Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
+
+## Setup
+
+Make sure to install the dependencies:
+
+```bash
+# yarn
+yarn install
+
+# npm
+npm install
+
+# pnpm
+pnpm install --shamefully-hoist
+```
+
+## Development Server
+
+Start the development server on http://localhost:3000
+
+```bash
+npm run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+npm run build
+```
+
+Locally preview production build:
+
+```bash
+npm run preview
+```
+
+Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.

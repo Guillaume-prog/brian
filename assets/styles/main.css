@@ -1,0 +1,10 @@
+html,
+body,
+#__nuxt,
+#main {
+  @apply h-full m-0;
+}
+
+.card {
+  @apply bg-white p-4 rounded-lg shadow-md flex gap-3 md:gap-4 items-center;
+}
